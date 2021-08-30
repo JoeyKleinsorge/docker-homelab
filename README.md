@@ -2,10 +2,10 @@
 
 A repository to keep resources and configuration files used with my homelab containers.
 
-[![version](https://img.shields.io/github/manifest-json/v/JoeyKleinsorge/homelab?label=Kubernetes)](https://github.com/JoeyKleinsorge/homelab/blob/master/VERSIONS.md)
-[![license](https://img.shields.io/github/license/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/blob/master/LICENSE)
-[![last commit](https://img.shields.io/github/last-commit/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/commits/master)
-[![commit activity](https://img.shields.io/github/commit-activity/y/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/commits/master)
+[![version](https://img.shields.io/github/manifest-json/v/JoeyKleinsorge/homelab?label=Docker)](https://github.com/JoeyKleinsorge/homelab/blob/main/VERSIONS.md)
+[![license](https://img.shields.io/github/license/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/blob/main/LICENSE)
+[![last commit](https://img.shields.io/github/last-commit/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/commits/main)
+[![commit activity](https://img.shields.io/github/commit-activity/y/JoeyKleinsorge/homelab)](https://github.com/JoeyKleinsorge/homelab/commits/main)
 
 
 # Content of the Repository
