@@ -10,12 +10,12 @@ networks:
 
 # SERVICES
 services:
-  # Traefik 2 - Reverse Proxy
-  traefik:
+  # Traefik - Reverse Proxy
+  traefik:   
     container_name: traefik
     image: traefik:2.2.1 
     restart: unless-stopped
-    command: # CLI arguments
+    command:
       - --global.checkNewVersion=true
       - --global.sendAnonymousUsage=true
       - --entryPoints.http.address=:80
@@ -68,20 +68,16 @@ services:
       - CF_API_KEY=$CLOUDFLARE_API_KEY
     labels:
       - 'traefik.enable=true'
-      # HTTP-to-HTTPS Redirect
       - 'traefik.http.routers.http-catchall.entrypoints=http'
       - 'traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)'
       - 'traefik.http.routers.http-catchall.middlewares=redirect-to-https'
       - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
-      # HTTP Routers
       - 'traefik.http.routers.traefik-rtr.entrypoints=https'
       - 'traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)'
       - 'traefik.http.routers.traefik-rtr.tls=true'
       - 'traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME'
       - 'traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME'
-      ## Services - API
       - 'traefik.http.routers.traefik-rtr.service=api@internal'
-      ## Middlewares
       - 'traefik.http.routers.traefik-rtr.middlewares=chain-basic-auth@file'
       - 'traefik.http.middlewares.traefik-headers.headers.accesscontrolallowmethods=GET, OPTIONS, PUT'
       - 'traefik.http.middlewares.traefik-headers.headers.accesscontrolalloworiginlist=https://$DOMAINNAME'
@@ -98,10 +94,8 @@ services:
       - 'traefik.http.middlewares.traefik-headers.headers.stspreload=true'
       - 'traefik.http.middlewares.traefik-headers.headers.forcestsheader=true'
       - 'traefik.http.middlewares.traefik-headers.headers.framedeny=true'
-      #      - "traefik.http.middlewares.traefik-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
       - 'traefik.http.middlewares.traefik-headers.headers.contenttypenosniff=true'
       - 'traefik.http.middlewares.traefik-headers.headers.browserxssfilter=true'
-      #      - "traefik.http.middlewares.traefik-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
       - 'traefik.http.middlewares.traefik-headers.headers.referrerpolicy=same-origin'
       - "traefik.http.middlewares.traefik-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
       - 'traefik.http.middlewares.traefik-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,'
@@ -126,13 +120,10 @@ services:
       - TZ=$TZ
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.ghost-rtr.entrypoints=https'
       - 'traefik.http.routers.ghost-rtr.rule=Host(`$DOMAINNAME`,`www.$DOMAINNAME`)'
       - 'traefik.http.routers.ghost-rtr.tls=true'
-      ## Middlewares
       - 'traefik.http.routers.ghost-rtr.middlewares=chain-no-auth@file'
-      ## HTTP Services
       - 'traefik.http.routers.ghost-rtr.service=ghost-svc'
       - 'traefik.http.services.ghost-svc.loadbalancer.server.port=$GHOST_PORT'
 
@@ -162,13 +153,10 @@ services:
       - TZ=$TZ
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.unifi-rtr.entrypoints=https'
       - 'traefik.http.routers.unifi-rtr.rule=Host(`unifi.$DOMAINNAME`)'
       - 'traefik.http.routers.unifi-rtr.tls=true'
-      ## Middlewares
       - 'traefik.http.routers.unifi-rtr.middlewares=chain-no-auth@file'
-      ## HTTP Services
       - 'traefik.http.routers.unifi-rtr.service=unifi-svc'
       - 'traefik.http.services.unifi-svc.loadbalancer.server.port=$UNIFI_PORT'
 
@@ -191,13 +179,10 @@ services:
       - TZ=$TZ
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.portainer-rtr.entrypoints=https'
       - 'traefik.http.routers.portainer-rtr.rule=Host(`monitor.$DOMAINNAME`)'
       - 'traefik.http.routers.portainer-rtr.tls=true'
-      ## Middlewares
       - 'traefik.http.routers.portainer-rtr.middlewares=chain-no-auth@file' # No Authentication
-      ## HTTP Services
       - 'traefik.http.routers.portainer-rtr.service=portainer-svc'
       - 'traefik.http.services.portainer-svc.loadbalancer.server.port=$PORTAINER_PORT'
 
@@ -221,12 +206,9 @@ services:
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.vsc-rtr.entrypoints=https'
       - 'traefik.http.routers.vsc-rtr.rule=Host(`vsc.$DOMAINNAME`)'
-      ## Middlewares
       - 'traefik.http.routers.vsc-rtr.middlewares=chain-no-auth@file' 
-      ## HTTP Services
       - 'traefik.http.routers.vsc-rtr.service=vsc-svc'
       - 'traefik.http.services.vsc-svc.loadbalancer.server.port=$VSC_PORT'      
     
@@ -270,13 +252,10 @@ services:
       - TZ=$TZ
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.heimdall-rtr.entrypoints=https'
       - 'traefik.http.routers.heimdall-rtr.rule=Host(`home.$DOMAINNAME`)'
       - 'traefik.http.routers.heimdall-rtr.tls=true'
-      ## Middlewares
       - 'traefik.http.routers.heimdall-rtr.middlewares=chain-basic-auth@file'
-      ## HTTP Services
       - 'traefik.http.routers.heimdall-rtr.service=heimdall-svc'
       - 'traefik.http.services.heimdall-svc.loadbalancer.server.port=80'
 
@@ -297,13 +276,10 @@ services:
       - TZ=$TZ
     labels:
       - 'traefik.enable=true'
-      ## HTTP Routers
       - 'traefik.http.routers.tautulli-rtr.entrypoints=https'
       - 'traefik.http.routers.tautulli-rtr.rule=Host(`tautulli.$DOMAINNAME`)'
       - 'traefik.http.routers.tautulli-rtr.tls=true'
-      ## Middlewares
       - 'traefik.http.routers.tautulli-rtr.middlewares=chain-basic-auth@file'
-      ## HTTP Services
       - 'traefik.http.routers.tautulli-rtr.service=tautulli-svc'
       - 'traefik.http.services.tautulli-svc.loadbalancer.server.port=8181'
 
