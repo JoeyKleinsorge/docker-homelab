@@ -15,7 +15,7 @@ A repository to keep resources and configuration files used with my homelab cont
 
 # Pre-requisites
 
-I do this all on my [Synology DS1817+] (https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/17-year/DS1817+/enu/Synology_DS1817_Plus_Data_Sheet_enu.pdf)
+I do this all on my [Synology DS1817+](https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/17-year/DS1817+/enu/Synology_DS1817_Plus_Data_Sheet_enu.pdf)
 
 # Deployment
 ```
@@ -24,4 +24,4 @@ $ docker-compose -f homelab.yaml up -d
 
 # Blog Posts
 
-[blog] (https://joeykleinsorge.com)
+[blog](https://joeykleinsorge.com)
