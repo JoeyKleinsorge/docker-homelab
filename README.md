@@ -10,7 +10,7 @@ A repository to keep resources and configuration files used with my homelab cont
 
 # Content of the Repository
 
-* [`homelab`](./homelab/) - YAML dockerfile that does all the work.
+* [`homelab`](./homelab/) - docker-compose file that does all the work.
 * [`env`](./example/) - Example configuration file.
 
 # Pre-requisites
